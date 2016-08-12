@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name ="menu_icons">
+        <item>@drawable/scoreboard</item>
+        <item>@drawable/ic_live_tv_black_24dp</item>
+    </array>
+
+    <array name = "menu_titles">
+        <item>Keep Score</item>
+        <item>Watch Live</item>
+    </array>
+</resources>
