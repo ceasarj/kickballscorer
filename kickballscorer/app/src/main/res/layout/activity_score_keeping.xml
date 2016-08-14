@@ -19,4 +19,49 @@
         android:id="@+id/timer"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timer"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="72dp"
+        android:id="@+id/outs" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/outs"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="13dp"
+        android:id="@+id/score" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/score"
+        android:layout_alignParentStart="true"
+        android:id="@+id/innings" />
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/innings"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="49dp"
+        android:id="@+id/score_button" />
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/score_button"
+        android:layout_toEndOf="@+id/score_button"
+        android:id="@+id/outs_button" />
+
+
 </RelativeLayout>
