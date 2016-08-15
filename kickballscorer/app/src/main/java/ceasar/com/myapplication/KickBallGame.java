@@ -31,11 +31,6 @@ public class KickBallGame {
         currentlyKickingTeam.addPoint();
     }
 
-//    public void subPoint(){
-//        if(score > 0)
-//            score--;
-//    }
-
     public void addOut(){
         if(outs < 2) {
             outs++;

@@ -21,33 +21,39 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="TextView"
+        android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="30sp"
         android:layout_below="@+id/timer"
         android:layout_alignParentStart="true"
         android:layout_marginTop="72dp"
         android:id="@+id/outs" />
 
     <TextView
-        android:text="TextView"
+        android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="30sp"
         android:layout_below="@+id/outs"
         android:layout_alignParentStart="true"
         android:layout_marginTop="13dp"
         android:id="@+id/score" />
 
     <TextView
-        android:text="TextView"
+        android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="30sp"
         android:layout_below="@+id/score"
         android:layout_alignParentStart="true"
         android:id="@+id/innings" />
 
     <Button
-        android:text="Button"
+        android:text="score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/innings"
@@ -56,12 +62,20 @@
         android:id="@+id/score_button" />
 
     <Button
-        android:text="Button"
+        android:text="outs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/score_button"
         android:layout_toEndOf="@+id/score_button"
         android:id="@+id/outs_button" />
+
+    <Button
+        android:text="save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/save" />
 
 
 </RelativeLayout>
