@@ -34,7 +34,5 @@ First Header | Second Header
 1x0 | 1x1
 
 ###Testing references to commits
-4009a772ac6fb347aa4b5ccc5467259e9d4fb1ef
-ceasarj@4009a772ac6fb347aa4b5ccc5467259e9d4fb1ef
 ceasarj/kickballscorer@4009a772ac6fb347aa4b5ccc5467259e9d4fb1ef
-https://github.com/ceasarj/kickballscorer/commit/4009a772ac6fb347aa4b5ccc5467259e9d4fb1ef
+
