@@ -44,6 +44,7 @@ public class KickballGameDBHelper extends SQLiteOpenHelper {
     }
 
     public void addGame(GameModel game){
+        // populate data for db
         ContentValues values = new ContentValues();
         values.put(KickballGameContract.HOME_TEAM_NAME, game.homeTeamName);
         values.put(KickballGameContract.HOME_TEAM_SCORE, game.homeTeamScore);
@@ -58,14 +59,15 @@ public class KickballGameDBHelper extends SQLiteOpenHelper {
     /** get a list of all the games that have been saved in the phone **/
     public List<GameModel> getGames(){
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] test = {
+        // name of the columns to be retreive data from
+        String[] colNames = {
             KickballGameContract.HOME_TEAM_NAME,
-                KickballGameContract.HOME_TEAM_SCORE,
-                KickballGameContract.AWAY_TEAM_NAME,
-                KickballGameContract.AWAY_TEAM_SCORE
+            KickballGameContract.HOME_TEAM_SCORE,
+            KickballGameContract.AWAY_TEAM_NAME,
+            KickballGameContract.AWAY_TEAM_SCORE
         };
         Cursor cursor = db.query(KickballGameContract.TABLE_NAME,
-                test, null, null, null,null, null);
+                colNames, null, null, null,null, null);
         List<GameModel> games = new ArrayList<>();
 
         if(cursor != null){
@@ -75,7 +77,6 @@ public class KickballGameDBHelper extends SQLiteOpenHelper {
                 gm.homeTeamScore = cursor.getInt(1);
                 gm.awayTeamName = cursor.getString(2);
                 gm.awayTeamScore = cursor.getInt(3);
-
                 games.add(gm);
             }
         }

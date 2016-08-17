@@ -88,4 +88,8 @@ public class KickBallGame {
     public Team getAwayTeam(){
         return awayTeam;
     }
+
+    public int getStrikes(){
+        return strikes;
+    }
 }
