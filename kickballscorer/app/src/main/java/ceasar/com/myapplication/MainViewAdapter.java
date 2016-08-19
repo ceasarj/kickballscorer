@@ -2,6 +2,7 @@ package ceasar.com.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -47,11 +48,12 @@ public class MainViewAdapter extends RecyclerView.Adapter<MainViewAdapter.ViewHo
             public void onClick(View view) {
                 switch(position){
                     case KEEP_SCORE:
-                        Intent intent = new Intent(act, ScoreKeepingAcivity.class);
-                        act.startActivity(intent);
+                        Intent scoreIntent = new Intent(act, ScoreKeepingAcivity.class);
+                        act.startActivity(scoreIntent);
                         break;
                     case WATCH_LIVE:
-                        // send to live scorekeep activity
+                        Intent liveIntent = new Intent(act, KickballScorerLiveActivity.class);
+                        act.startActivity(liveIntent);
                         break;
                 }
             }
