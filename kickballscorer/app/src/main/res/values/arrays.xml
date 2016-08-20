@@ -3,10 +3,12 @@
     <array name ="menu_icons">
         <item>@drawable/scoreboard</item>
         <item>@drawable/ic_live_tv_black_24dp</item>
+        <item>@drawable/scoreboard</item>
     </array>
 
     <array name = "menu_titles">
         <item>Keep Score</item>
         <item>Watch Live</item>
+        <item>Game History</item>
     </array>
 </resources>

@@ -7,5 +7,5 @@
     <dimen name="icon_width">60dp</dimen>
     <dimen name="icon_height">60dp</dimen>
 
-    <dimen name = "timer_text_size">100sp</dimen>
+    <dimen name="timer_text_size">100sp</dimen>
 </resources>

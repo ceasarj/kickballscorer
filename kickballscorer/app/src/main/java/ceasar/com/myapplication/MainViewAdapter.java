@@ -21,6 +21,7 @@ import java.util.List;
 public class MainViewAdapter extends RecyclerView.Adapter<MainViewAdapter.ViewHolder> {
     private final int KEEP_SCORE = 0;
     private final int WATCH_LIVE = 1;
+    private final int GAME_HISTORY = 2;
 
     private final List<ContentModel> contentModels;
     private Activity act;
@@ -54,6 +55,10 @@ public class MainViewAdapter extends RecyclerView.Adapter<MainViewAdapter.ViewHo
                     case WATCH_LIVE:
                         Intent liveIntent = new Intent(act, KickballScorerLiveActivity.class);
                         act.startActivity(liveIntent);
+                        break;
+                    case GAME_HISTORY:
+                        Intent historyIntent = new Intent(act, GameHistoryActivity.class);
+                        act.startActivity(historyIntent);
                         break;
                 }
             }
