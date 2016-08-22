@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -38,43 +39,10 @@ public class KickballScorerLiveActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
         setContentView(R.layout.scorer_live_activity);
+        Log.d("OnCreate", "layout is inflating");
         findViews();
         data = new ArrayList<>();
         reqGameName();
-        gameNameRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Iterator it = dataSnapshot.getChildren().iterator();
-
-                while(it.hasNext()){
-                    String child = (String)((DataSnapshot) it.next()).getValue();
-                    data.add(child);
-                }
-
-                outs.setText(data.get(0));
-                outs.setText(data.get(1));
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     private void findViews(){
@@ -83,16 +51,70 @@ public class KickballScorerLiveActivity extends AppCompatActivity {
     }
 
     private void reqGameName(){
+        Log.i("Input!!!!!", "ajksndlkjasnldkjnasldkjnaslkjdnlaskjdnlkasjndlk");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter the game you wish get scoring for");
         final EditText input = new EditText(this);
         builder.setView(input);
+        Log.d("Input!!!!!", "ajksndlkjasnldkjnasldkjnaslkjdnlaskjdnlkasjndlk");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 gameName = input.getText().toString();
+                Log.d("Input!!!!!!!!!", gameName);
                 gameNameRef = FirebaseDatabase.getInstance().getReference().child(gameName);
+                String key = gameNameRef.push().getKey();
+                gameNameRef.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Iterator it = dataSnapshot.getChildren().iterator();
+                        Log.d("Iterator Size",it.hasNext() + "");
+                        while(it.hasNext()){
+                            String child = ((DataSnapshot) it.next()).getValue().toString();
+                            data.add(child);
+                        }
+
+                        outs.setText(data.get(0));
+                        innings.setText(data.get(1));
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        Iterator it = dataSnapshot.getChildren().iterator();
+
+                        while(it.hasNext()){
+                            String child = ((DataSnapshot) it.next()).getValue().toString();
+                            data.add(child);
+                        }
+
+                        outs.setText(data.get(0));
+                        outs.setText(data.get(1));
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+                finish();
+            }
+        });
+        builder.show();
     }
 }

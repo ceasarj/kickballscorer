@@ -9,10 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import com.firebase.client.Firebase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,7 +22,6 @@ import ceasar.com.myapplication.local.storage.KickballGameDBHelper;
 
 public class ScoreKeepingAcivity extends AppCompatActivity
         implements View.OnClickListener {
-
     // key names
     private static final String HOME_NAME = "home_team_name";
     private static final String HOME_SCORE = "home_team_score";
@@ -47,8 +44,7 @@ public class ScoreKeepingAcivity extends AppCompatActivity
 
     private String gameName;
     private String randomKey;
-    private String actionChange;                // store the key name for which the values changed
-    private boolean dataAdded;
+
 
     // references
     private DatabaseReference refRoot = FirebaseDatabase.getInstance().getReference().getRoot();
@@ -77,8 +73,6 @@ public class ScoreKeepingAcivity extends AppCompatActivity
 
         dbHelper = new KickballGameDBHelper(getBaseContext());
 
-        dataAdded = false;
-        dataAdded = true;
     }
 
     private void createNewGame(String homeTeamName, int numOfHomePlayers,
@@ -96,14 +90,10 @@ public class ScoreKeepingAcivity extends AppCompatActivity
             game.addOut();
             outs.setText(game.getOuts() + "");
             innings.setText(game.getInning() + "");
-            actionChange = OUTS;
         } else if (view == scoreButton) {
             game.addPoint();
             score.setText(game.getHomeTeam().getScore() + " : " + game.getAwayTeam().getScore());
-            /**
-             * TODO: A bit ambiguous here
-             * **/
-            actionChange = AWAY_SCORE;
+
         } else if (view == saveButton) {
             GameModel gm = new GameModel();
             gm.awayTeamScore = game.getAwayTeam().getScore();
