@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".ScoreKeepingAcivity" />
         <activity android:name=".GameHistoryActivity"></activity>
+        <activity android:name=".KickballScorerLiveActivity" />
     </application>
 
 </manifest>
