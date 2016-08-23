@@ -58,7 +58,6 @@ public class KickballGameDBHelper extends SQLiteOpenHelper {
 
     /** get a list of all the games that have been saved in the phone **/
     public List<GameModel> getGames(){
-        SQLiteDatabase db = this.getReadableDatabase();
         // name of the columns to be retreive data from
         String[] colNames = {
             KickballGameContract.HOME_TEAM_NAME,
@@ -66,10 +65,10 @@ public class KickballGameDBHelper extends SQLiteOpenHelper {
             KickballGameContract.AWAY_TEAM_NAME,
             KickballGameContract.AWAY_TEAM_SCORE
         };
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(KickballGameContract.TABLE_NAME,
                 colNames, null, null, null,null, null);
         List<GameModel> games = new ArrayList<>();
-
         if(cursor != null){
             while(cursor.moveToNext()){
                 GameModel gm = new GameModel();
@@ -80,6 +79,7 @@ public class KickballGameDBHelper extends SQLiteOpenHelper {
                 games.add(gm);
             }
         }
+        db.close();
         return games;
     }
 }
