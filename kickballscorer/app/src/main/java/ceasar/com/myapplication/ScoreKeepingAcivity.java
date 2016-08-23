@@ -11,8 +11,12 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,20 +63,38 @@ public class ScoreKeepingAcivity extends AppCompatActivity
         findViewsById();
         createNewGame("Home Team", 10, "Away Team", 10);
 
-        cMeter.start();
-        cMeter.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-            @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                Log.d("Time", cMeter.getText().toString());
-            }
-        });
-
         outsButton.setOnClickListener(this);
         scoreButton.setOnClickListener(this);
         saveButton.setOnClickListener(this);
 
         dbHelper = new KickballGameDBHelper(getBaseContext());
 
+        refRoot.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                finish();
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void createNewGame(String homeTeamName, int numOfHomePlayers,
@@ -90,10 +112,11 @@ public class ScoreKeepingAcivity extends AppCompatActivity
             game.addOut();
             outs.setText(game.getOuts() + "");
             innings.setText(game.getInning() + "");
+            setValuesOfChildren();
         } else if (view == scoreButton) {
             game.addPoint();
             score.setText(game.getHomeTeam().getScore() + " : " + game.getAwayTeam().getScore());
-
+            setValuesOfChildren();
         } else if (view == saveButton) {
             GameModel gm = new GameModel();
             gm.awayTeamScore = game.getAwayTeam().getScore();
@@ -101,7 +124,10 @@ public class ScoreKeepingAcivity extends AppCompatActivity
             gm.homeTeamScore = game.getHomeTeam().getScore();
             gm.homeTeamName = game.getHomeTeam().getTeamName();
             dbHelper.addGame(gm);
-
+            // remove the random key
+            gameNameRoot.child(randomKey).removeValue();
+            //gameNameRoot.removeValue();
+            //finish();
             /**
              * TODO: Delete the list and for loop before deployment
              * **/
@@ -112,8 +138,8 @@ public class ScoreKeepingAcivity extends AppCompatActivity
                 Log.d("Away team name", games.get(i).awayTeamName);
                 Log.d("Away team score", games.get(i).awayTeamScore + "");
             }
+            return;
         }
-        setValuesOfChildren();
     }
 
     private void findViewsById() {
@@ -133,17 +159,20 @@ public class ScoreKeepingAcivity extends AppCompatActivity
         // put Edit Text inside of the alert dialog
         final EditText gameInput = new EditText(this);
         builder.setView(gameInput);
+
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 gameName = gameInput.getText().toString();
                 HashMap<String, Object> map = new HashMap<>();
-                map.put(gameName, "");  // only need the name of the game
+                map.put(gameName, "");
                 refRoot.updateChildren(map);
                 generateRandomKey();
                 createChildren();
+                cMeter.start();
             }
         });
+
         // cancelling means the user does not want to send live data
         builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
@@ -151,10 +180,13 @@ public class ScoreKeepingAcivity extends AppCompatActivity
                 dialogInterface.cancel();
             }
         });
+
         builder.show();
     }
 
-    /** Generate random key and store it in firebase **/
+    /**
+     * Generate random key and store it in firebase
+     **/
     private void generateRandomKey() {
         // point at the game name in fire db
         gameNameRoot = FirebaseDatabase.getInstance()
@@ -179,7 +211,7 @@ public class ScoreKeepingAcivity extends AppCompatActivity
         gameNameChild.updateChildren(map);
     }
 
-    private void setValuesOfChildren(){
+    private void setValuesOfChildren() {
         gameNameChild.child(HOME_SCORE).setValue(game.getHomeTeam().getScore());
         gameNameChild.child(AWAY_SCORE).setValue(game.getAwayTeam().getScore());
         gameNameChild.child(INNING).setValue(game.getInning());
