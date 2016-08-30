@@ -56,17 +56,31 @@ public class KickballScorerLiveActivity extends AppCompatActivity {
 
     private void reqGameName(){
         Log.i("Input!!!!!", "ajksndlkjasnldkjnasldkjnaslkjdnlaskjdnlkasjndlk");
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter the game you wish get scoring for");
         final EditText input = new EditText(this);
         builder.setView(input);
         Log.d("Input!!!!!", "ajksndlkjasnldkjnasldkjnaslkjdnlaskjdnlkasjndlk");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(final DialogInterface dialogInterface, int i) {
                 gameName = input.getText().toString();
                 gameNameRef = FirebaseDatabase.getInstance().getReference().child(gameName);
-                gameNameRef.push().getKey();
+
+                gameNameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(!dataSnapshot.exists()){
+                            // right here is to test if the child has a key.
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
                 gameNameRef.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {

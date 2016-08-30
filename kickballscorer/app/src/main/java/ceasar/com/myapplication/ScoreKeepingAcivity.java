@@ -48,7 +48,7 @@ public class ScoreKeepingAcivity extends AppCompatActivity
 
     private String gameName;
     private String randomKey;
-
+    private boolean isBroadcasting;
 
     // references
     private DatabaseReference refRoot = FirebaseDatabase.getInstance().getReference().getRoot();
@@ -124,8 +124,7 @@ public class ScoreKeepingAcivity extends AppCompatActivity
             gm.homeTeamScore = game.getHomeTeam().getScore();
             gm.homeTeamName = game.getHomeTeam().getTeamName();
             dbHelper.addGame(gm);
-            // remove the random key
-            gameNameRoot.child(randomKey).removeValue();
+            gameNameRoot.child(randomKey).removeValue();            // remove random key
             //gameNameRoot.removeValue();
             //finish();
             /**
@@ -160,7 +159,7 @@ public class ScoreKeepingAcivity extends AppCompatActivity
         final EditText gameInput = new EditText(this);
         builder.setView(gameInput);
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Broadcast", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 gameName = gameInput.getText().toString();
@@ -169,14 +168,16 @@ public class ScoreKeepingAcivity extends AppCompatActivity
                 refRoot.updateChildren(map);
                 generateRandomKey();
                 createChildren();
+                isBroadcasting = true;
                 cMeter.start();
             }
         });
 
         // cancelling means the user does not want to send live data
-        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("offline", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                isBroadcasting = false;
                 dialogInterface.cancel();
             }
         });
@@ -212,10 +213,12 @@ public class ScoreKeepingAcivity extends AppCompatActivity
     }
 
     private void setValuesOfChildren() {
-        gameNameChild.child(HOME_SCORE).setValue(game.getHomeTeam().getScore());
-        gameNameChild.child(AWAY_SCORE).setValue(game.getAwayTeam().getScore());
-        gameNameChild.child(INNING).setValue(game.getInning());
-        gameNameChild.child(OUTS).setValue(game.getOuts());
-        gameNameChild.child(STRIKES).setValue(game.getStrikes());
+        if(isBroadcasting) {
+            gameNameChild.child(HOME_SCORE).setValue(game.getHomeTeam().getScore());
+            gameNameChild.child(AWAY_SCORE).setValue(game.getAwayTeam().getScore());
+            gameNameChild.child(INNING).setValue(game.getInning());
+            gameNameChild.child(OUTS).setValue(game.getOuts());
+            gameNameChild.child(STRIKES).setValue(game.getStrikes());
+        }
     }
 }
