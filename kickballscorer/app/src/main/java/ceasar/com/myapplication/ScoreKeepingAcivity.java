@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +40,7 @@ public class ScoreKeepingAcivity extends AppCompatActivity
     private static final String INNING = "innigs";
     private static final String OUTS = "outs";
     private static final String STRIKES = "strikes";
+    private static final String START_TIME = "start_time";
 
     private Chronometer cMeter;
     private ImageButton outPlus;
@@ -220,6 +224,8 @@ public class ScoreKeepingAcivity extends AppCompatActivity
         map.put(INNING, game.getInning());
         map.put(OUTS, game.getOuts());
         map.put(STRIKES, game.getStrikes());
+        long startTime = System.currentTimeMillis()/1000;
+        map.put(START_TIME, startTime);
         gameNameChild.updateChildren(map);
     }
 
