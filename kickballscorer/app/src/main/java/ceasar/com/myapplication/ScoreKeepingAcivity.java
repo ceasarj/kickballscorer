@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -16,11 +19,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import ceasar.com.myapplication.local.storage.KickballGameDBHelper;
 
@@ -36,11 +39,14 @@ public class ScoreKeepingAcivity extends AppCompatActivity
     private static final String STRIKES = "strikes";
 
     private Chronometer cMeter;
+    private ImageButton outPlus;
+    private ImageButton outMinus;
+    private ImageButton scorePlus;
+    private ImageButton scoreMinus;
     private TextView outs;
     private TextView innings;
-    private TextView score;
-    private Button outsButton;
-    private Button scoreButton;
+    private TextView homeTeamScore;
+    private TextView awayTeamScore;
     private Button saveButton;
 
     private KickBallGame game;
@@ -63,9 +69,10 @@ public class ScoreKeepingAcivity extends AppCompatActivity
         findViewsById();
         createNewGame("Home Team", 10, "Away Team", 10);
 
-        outsButton.setOnClickListener(this);
-        scoreButton.setOnClickListener(this);
-        saveButton.setOnClickListener(this);
+        outPlus.setOnClickListener(this);
+        outMinus.setOnClickListener(this);
+        scorePlus.setOnClickListener(this);
+        scoreMinus.setOnClickListener(this);
 
         dbHelper = new KickballGameDBHelper(getBaseContext());
 
@@ -95,6 +102,7 @@ public class ScoreKeepingAcivity extends AppCompatActivity
 
             }
         });
+
     }
 
     private void createNewGame(String homeTeamName, int numOfHomePlayers,
@@ -108,14 +116,15 @@ public class ScoreKeepingAcivity extends AppCompatActivity
 
     @Override
     public void onClick(View view) {
-        if (view == outsButton) {
+        if (view == outPlus) {
             game.addOut();
-            outs.setText(game.getOuts() + "");
+            outs.setText(game.getOuts() + " outs");
             innings.setText(game.getInning() + "");
             setValuesOfChildren();
-        } else if (view == scoreButton) {
+        } else if (view == scorePlus) {
             game.addPoint();
-            score.setText(game.getHomeTeam().getScore() + " : " + game.getAwayTeam().getScore());
+            awayTeamScore.setText(String.valueOf(game.getAwayTeam().getScore()));
+            homeTeamScore.setText(String.valueOf(game.getHomeTeam().getScore()));
             setValuesOfChildren();
         } else if (view == saveButton) {
             GameModel gm = new GameModel();
@@ -137,18 +146,21 @@ public class ScoreKeepingAcivity extends AppCompatActivity
                 Log.d("Away team name", games.get(i).awayTeamName);
                 Log.d("Away team score", games.get(i).awayTeamScore + "");
             }
-            return;
         }
     }
 
     private void findViewsById() {
-        outs = (TextView) findViewById(R.id.outs);
-        innings = (TextView) findViewById(R.id.innings);
-        score = (TextView) findViewById(R.id.score);
-        outsButton = (Button) findViewById(R.id.outs_button);
-        scoreButton = (Button) findViewById(R.id.score_button);
-        saveButton = (Button) findViewById(R.id.save);
+        outs = (TextView) findViewById(R.id.outs_tv);
+        outPlus = (ImageButton) findViewById(R.id.add_out_button);
+        outMinus = (ImageButton) findViewById(R.id.minus_out_button);
+        scorePlus = (ImageButton) findViewById(R.id.plus_score_button);
+        scoreMinus = (ImageButton) findViewById(R.id.minus_score_button);
+        awayTeamScore = (TextView) findViewById(R.id.away_team_score);
+        homeTeamScore = (TextView) findViewById(R.id.home_team_score);
+        innings = (TextView) findViewById(R.id.inning_number);
+        saveButton = (Button) findViewById(R.id.save_button);
         cMeter = (Chronometer) findViewById(R.id.timer);
+
     }
 
     private void reqGameNameFromUser() {
@@ -196,7 +208,6 @@ public class ScoreKeepingAcivity extends AppCompatActivity
         Map<String, Object> map = new HashMap<>();
         map.put(randomKey, "");
         gameNameRoot.updateChildren(map);
-        // point at the random key
         gameNameChild = gameNameRoot.child(randomKey);
     }
 

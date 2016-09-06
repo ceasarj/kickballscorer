@@ -7,5 +7,9 @@
     <dimen name="icon_width">60dp</dimen>
     <dimen name="icon_height">60dp</dimen>
 
-    <dimen name="timer_text_size">100sp</dimen>
+    <dimen name="timer_text_size">50sp</dimen>
+
+    <dimen name="team_content_text_size">20sp</dimen>
+    <!-- Scorekeeping ImageButton Width and hieght -->
+    <dimen name="icon_button_dimensions">50dp</dimen>
 </resources>

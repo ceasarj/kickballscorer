@@ -48,7 +48,6 @@ public class Player {
         sb.append(" for ");
         sb.append(numOfAtBats);
         sb.append(")");
-
         // name(1 for 4)
         return sb.toString();
     }

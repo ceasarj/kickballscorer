@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_score_keeping_acivity"
     android:layout_width="match_parent"
@@ -10,6 +11,79 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ceasar.com.myapplication.ScoreKeepingAcivity">
 
+    <ImageButton
+        android:layout_width="@dimen/icon_button_dimensions"
+        android:layout_height="@dimen/icon_button_dimensions"
+        app:srcCompat="@drawable/minus_ic"
+        android:layout_below="@+id/timer"
+        android:layout_alignParentStart="true"
+        android:id="@+id/minus_out_button" />
+
+    <ImageButton
+        android:layout_width="@dimen/icon_button_dimensions"
+        android:layout_height="@dimen/icon_button_dimensions"
+        app:srcCompat="@drawable/add_ic"
+        android:layout_below="@+id/timer"
+        android:layout_alignBottom="@+id/minus_out_button"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/add_out_button" />
+
+    <TextView
+        android:text="0 outs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50dp"
+        android:textColor="@color/black"
+        android:layout_alignBottom="@+id/add_out_button"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/outs_tv"
+        android:layout_below="@+id/timer" />
+
+    <View
+        style = "@style/Divider"
+        android:layout_below="@+id/outs_tv"
+        android:id="@+id/divider1"/>
+
+    <ImageButton
+        android:layout_width="@dimen/icon_button_dimensions"
+        android:layout_height="@dimen/icon_button_dimensions"
+        app:srcCompat="@drawable/minus_ic"
+        android:id="@+id/minus_score_button"
+        android:layout_below="@+id/divider1"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="@dimen/icon_button_dimensions"
+        android:layout_height="@dimen/icon_button_dimensions"
+        app:srcCompat="@drawable/add_ic"
+        android:layout_alignBottom="@+id/minus_score_button"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/plus_score_button" />
+
+    <TextView
+        android:text="Score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50dp"
+        android:textColor="@color/black"
+        android:layout_alignBottom="@+id/minus_score_button"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/divider1" />
+
+    <TextView
+        android:text="Home Team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="@dimen/team_content_text_size"
+        android:textColor="@color/black"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:id="@+id/home_team_name" />
+
     <Chronometer
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,65 +91,82 @@
         android:background="@color/black"
         android:textAlignment="center"
         android:id="@+id/timer"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/home_team_name"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/main_text_size"
+        android:id="@+id/home_team_score"
+        android:gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Away Team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/home_team_score"
+        android:layout_marginTop="8dp"
+        android:id="@+id/away_team_name"
+        android:textSize="@dimen/team_content_text_size"
+        android:textColor="@color/black"
+        android:background="@color/background_red"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/timer" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/away_team_name"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/black"
+        android:textSize="@dimen/main_text_size"
+        android:id="@+id/away_team_score"
+        android:gravity="center"
+        android:layout_alignEnd="@+id/away_team_name" />
+
+    <TextView
+        android:text="Inning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/away_team_score"
+        android:id="@+id/inning_name"
+        android:gravity="center"
+        android:textSize="@dimen/team_content_text_size"
+        android:textColor="@color/black"
+        android:background="@color/grey"
         android:layout_alignParentStart="true" />
 
     <TextView
         android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/inning_name"
+        android:id="@+id/inning_number"
         android:textColor="@color/black"
-        android:textSize="30sp"
-        android:layout_below="@+id/timer"
+        android:gravity="center"
+        android:textSize="@dimen/main_text_size"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="72dp"
-        android:id="@+id/outs" />
-
-    <TextView
-        android:text="0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:layout_below="@+id/outs"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="13dp"
-        android:id="@+id/score" />
-
-    <TextView
-        android:text="0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:layout_below="@+id/score"
-        android:layout_alignParentStart="true"
-        android:id="@+id/innings" />
+        android:layout_alignParentEnd="true" />
 
     <Button
-        android:text="score"
+        android:text="Save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/innings"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="49dp"
-        android:id="@+id/score_button" />
-
-    <Button
-        android:text="outs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/score_button"
-        android:layout_toEndOf="@+id/score_button"
-        android:id="@+id/outs_button" />
-
-    <Button
-        android:text="save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/save_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/save" />
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
