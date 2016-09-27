@@ -20,9 +20,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalTime;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

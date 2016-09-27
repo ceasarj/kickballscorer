@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,9 @@ public class KickballScorerLiveActivity extends AppCompatActivity {
 
     private TextView innings;
     private TextView outs;
-
+    private TextView homeScore;
+    private TextView awayScore;
+    private Chronometer timer;
     private DatabaseReference gameNameRef;
     private DatabaseReference root;
     private String gameName;
@@ -50,17 +53,18 @@ public class KickballScorerLiveActivity extends AppCompatActivity {
     }
 
     private void findViews(){
-        outs = (TextView) findViewById(R.id.outs_live);
-        innings = (TextView) findViewById(R.id.inning_live);
+        outs = (TextView) findViewById(R.id.outs_number_live);
+        innings = (TextView) findViewById(R.id.inning_number_live);
+        homeScore = (TextView) findViewById(R.id.home_team_score_live);
+        awayScore = (TextView) findViewById(R.id.away_team_score_live);
+        timer = (Chronometer) findViewById(R.id.timer_live);
     }
 
     private void reqGameName(){
-        Log.i("Input!!!!!", "ajksndlkjasnldkjnasldkjnaslkjdnlaskjdnlkasjndlk");
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter the game you wish get scoring for");
         final EditText input = new EditText(this);
         builder.setView(input);
-        Log.d("Input!!!!!", "ajksndlkjasnldkjnasldkjnaslkjdnlaskjdnlkasjndlk");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialogInterface, int i) {
