@@ -23,7 +23,10 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * Created by ceejay562 on 8/17/2016.
@@ -34,12 +37,14 @@ public class KickballScorerLiveActivity extends AppCompatActivity {
     private TextView innings;
     private TextView outs;
     private TextView homeScore;
+    private TextView homeName;
     private TextView awayScore;
+    private TextView awayName;
     private Chronometer timer;
     private DatabaseReference gameNameRef;
     private DatabaseReference root;
     private String gameName;
-    private List<String> data;
+    private Queue<String> data;
 
     @Override
     public void onCreate(Bundle savedInstance){
@@ -48,7 +53,7 @@ public class KickballScorerLiveActivity extends AppCompatActivity {
         root = FirebaseDatabase.getInstance().getReference().getRoot();
         Log.d("OnCreate", "layout is inflating");
         findViews();
-        data = new ArrayList<>();
+        data = new LinkedList<>();
         reqGameName();
     }
 
@@ -56,7 +61,9 @@ public class KickballScorerLiveActivity extends AppCompatActivity {
         outs = (TextView) findViewById(R.id.outs_number_live);
         innings = (TextView) findViewById(R.id.inning_number_live);
         homeScore = (TextView) findViewById(R.id.home_team_score_live);
+        homeName = (TextView) findViewById(R.id.home_team_name_live);
         awayScore = (TextView) findViewById(R.id.away_team_score_live);
+        awayName = (TextView) findViewById(R.id.away_team_name_live);
         timer = (Chronometer) findViewById(R.id.timer_live);
     }
 
@@ -88,15 +95,20 @@ public class KickballScorerLiveActivity extends AppCompatActivity {
                 gameNameRef.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Iterator it = dataSnapshot.getChildren().iterator();
-                        Log.d("Iterator Size",it.hasNext() + "");
-                        while(it.hasNext()){
-                            String child = ((DataSnapshot) it.next()).getValue().toString();
-                            data.add(child);
+
+                        // add data to queue
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            data.add(((DataSnapshot) child).getValue().toString());
                         }
 
-                        outs.setText(data.get(0));
-                        innings.setText(data.get(1));
+                        awayName.setText(data.poll());
+                        awayScore.setText(data.poll());
+                        homeName.setText(data.poll());
+                        homeScore.setText(data.poll());
+                        innings.setText(data.poll());
+                        outs.setText(data.poll());
+                        data.poll(); // time
+                        data.poll(); // strikes
                     }
 
                     @Override
@@ -108,11 +120,16 @@ public class KickballScorerLiveActivity extends AppCompatActivity {
                             data.add(child);
                         }
 
-                        outs.setText(data.get(0));
-                        outs.setText(data.get(1));
+                        awayName.setText(data.poll());
+                        awayScore.setText(data.poll());
+                        homeName.setText(data.poll());
+                        homeScore.setText(data.poll());
+                        innings.setText(data.poll());
+                        outs.setText(data.poll());
+                        data.poll(); // time
+                        data.poll(); // strikes
                     }
 
-                    /** When the user ended the game. **/
                     @Override
                     public void onChildRemoved(DataSnapshot dataSnapshot) {
 
