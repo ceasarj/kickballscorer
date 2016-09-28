@@ -19,8 +19,8 @@ Kickballscorer is an Android application for umpires to keep score which sends a
   }
 }
 ```
-### Task List
+###Task List
 - [X] Add umpire scoring
-- [ ] Add game Spectating
+- [X] Add game Spectating
 - [X] Save Games
 - [ ] Players can add their name to rostor
