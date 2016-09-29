@@ -3,43 +3,116 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TextView
-        android:text="Inning"
+        android:text="Away Team"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="31dp"
-        android:id="@+id/textView2" />
-
-    <TextView
-        android:text="1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:textSize="20sp"
+        android:layout_marginTop="9dp"
+        android:id="@+id/home_team_name_live"
         android:textColor="@color/black"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_marginTop="45dp"
-        android:id="@+id/inning_live" />
-
-    <TextView
-        android:text="Outs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/inning_live"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="72dp"
-        android:id="@+id/textView4" />
+        android:gravity="center"
+        android:textSize="@dimen/main_text_size"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:text="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:textSize="20sp"
+        android:layout_below="@+id/home_team_name_live"
+        android:id="@+id/home_team_score_live"
         android:textColor="@color/black"
-        android:id="@+id/outs_live" />
+        android:gravity="center"
+        android:textSize="@dimen/main_text_size"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Home Team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/home_team_score_live"
+        android:layout_alignParentStart="true"
+        android:id="@+id/away_team_name_live"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="@dimen/main_text_size"
+        android:background="@color/background_red"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/away_team_name_live"
+        android:id="@+id/away_team_score_live"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="@dimen/main_text_size"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Inning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/away_team_score_live"
+        android:id="@+id/inning_name_live"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="@dimen/main_text_size"
+        android:background="@color/grey"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inning_name_live"
+        android:id="@+id/inning_number_live"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="@dimen/main_text_size"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Outs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inning_number_live"
+        android:id="@+id/outs_name_live"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="@dimen/main_text_size"
+        android:background="@color/green"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/outs_name_live"
+        android:id="@+id/outs_number_live"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="@dimen/main_text_size"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/outs_number_live"
+        android:id="@+id/timer_live"
+        android:textSize="@dimen/timer_text_size"
+        android:background="@color/black"
+        android:textAlignment="center"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

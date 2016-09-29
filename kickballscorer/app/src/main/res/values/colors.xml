@@ -5,6 +5,7 @@
     <color name="colorAccent">#f55c31</color>
     <color name="background_material_dark">#FFFFFFFF</color>
     <color name="black">#e3000000</color>
+    <color name="green">#00FF00</color>
     <color name="secondary_text_material_dark">#01a0cc</color>
     <color name="secondary_text_material_light">#c924fb</color>
     <color name="colorBackground">#FFFFFFFF</color>

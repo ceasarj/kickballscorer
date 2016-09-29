@@ -98,7 +98,7 @@ public class KickballScorerLiveActivity extends AppCompatActivity {
 
                         // add data to queue
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
-                            data.add(((DataSnapshot) child).getValue().toString());
+                            data.add( child.getValue().toString());
                         }
 
                         awayName.setText(data.poll());

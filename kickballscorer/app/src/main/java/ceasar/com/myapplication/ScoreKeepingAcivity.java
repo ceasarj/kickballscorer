@@ -10,10 +10,9 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -74,6 +73,7 @@ public class ScoreKeepingAcivity extends AppCompatActivity
         outMinus.setOnClickListener(this);
         scorePlus.setOnClickListener(this);
         scoreMinus.setOnClickListener(this);
+        saveButton.setOnClickListener(this);
 
         dbHelper = new KickballGameDBHelper(getBaseContext());
 
@@ -128,6 +128,7 @@ public class ScoreKeepingAcivity extends AppCompatActivity
             homeTeamScore.setText(String.valueOf(game.getHomeTeam().getScore()));
             setValuesOfChildren();
         } else if (view == saveButton) {
+            Log.d("Save", "Save");
             GameModel gm = new GameModel();
             gm.awayTeamScore = game.getAwayTeam().getScore();
             gm.awayTeamName = game.getAwayTeam().getTeamName();
@@ -135,18 +136,12 @@ public class ScoreKeepingAcivity extends AppCompatActivity
             gm.homeTeamName = game.getHomeTeam().getTeamName();
             dbHelper.addGame(gm);
             gameNameRoot.child(randomKey).removeValue();            // remove random key
-            //gameNameRoot.removeValue();
-            //finish();
-            /**
-             * TODO: Delete the list and for loop before deployment
-             * **/
-            List<GameModel> games = dbHelper.getGames();
-            for (int i = 0; i < games.size(); i++) {
-                Log.d("Home team name", games.get(i).homeTeamName);
-                Log.d("Home score", games.get(i).homeTeamScore + "");
-                Log.d("Away team name", games.get(i).awayTeamName);
-                Log.d("Away team score", games.get(i).awayTeamScore + "");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            finish();
         }
     }
 
