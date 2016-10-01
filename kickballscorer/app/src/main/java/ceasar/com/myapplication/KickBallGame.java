@@ -10,6 +10,7 @@ public class KickBallGame {
     private int strikes;
     private int inning;
     private int maxStrikes;
+    private int balls;
 
     private Team homeTeam;
     private Team awayTeam;
@@ -19,6 +20,7 @@ public class KickBallGame {
         outs = 0;
         strikes = 0;
         inning = 1;
+        balls = 0;
 
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
@@ -73,6 +75,21 @@ public class KickBallGame {
             strikes--;
     }
 
+    public void addBall(){
+        if(balls == 3){
+            balls = 0;
+        }
+        else{
+            balls++;
+        }
+    }
+
+    public void subBall(){
+        if(balls > 0){
+            balls--;
+        }
+    }
+
     public int getOuts(){
         return outs;
     }
@@ -91,5 +108,9 @@ public class KickBallGame {
 
     public int getStrikes(){
         return strikes;
+    }
+
+    public int getBalls(){
+        return balls;
     }
 }

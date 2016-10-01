@@ -36,6 +36,7 @@ public class ScoreKeepingAcivity extends AppCompatActivity
     private static final String INNING = "innigs";
     private static final String OUTS = "outs";
     private static final String STRIKES = "strikes";
+    private static final String BALLS = "balls";
     private static final String START_TIME = "start_time";
 
     private Chronometer cMeter;
@@ -47,6 +48,12 @@ public class ScoreKeepingAcivity extends AppCompatActivity
     private TextView innings;
     private TextView homeTeamScore;
     private TextView awayTeamScore;
+    private ImageButton strikesMinus;
+    private ImageButton strikesPlus;
+    private TextView strikes;
+    private ImageButton ballsMinus;
+    private ImageButton ballsPlus;
+    private TextView balls;
     private Button saveButton;
 
     private KickBallGame game;
@@ -74,6 +81,10 @@ public class ScoreKeepingAcivity extends AppCompatActivity
         scorePlus.setOnClickListener(this);
         scoreMinus.setOnClickListener(this);
         saveButton.setOnClickListener(this);
+        strikesMinus.setOnClickListener(this);
+        strikesPlus.setOnClickListener(this);
+        ballsMinus.setOnClickListener(this);
+        ballsPlus.setOnClickListener(this);
 
         dbHelper = new KickballGameDBHelper(getBaseContext());
 
@@ -127,6 +138,12 @@ public class ScoreKeepingAcivity extends AppCompatActivity
             awayTeamScore.setText(String.valueOf(game.getAwayTeam().getScore()));
             homeTeamScore.setText(String.valueOf(game.getHomeTeam().getScore()));
             setValuesOfChildren();
+        } else if(view == strikesPlus) {
+            game.addStrike();
+            strikes.setText(String.valueOf(game.getStrikes()) + "Strikes");
+        } else if(view == ballsPlus){
+            game.addBall();
+            balls.setText(String.valueOf(game.getBalls()) + "Balls");
         } else if (view == saveButton) {
             Log.d("Save", "Save");
             GameModel gm = new GameModel();
@@ -151,12 +168,17 @@ public class ScoreKeepingAcivity extends AppCompatActivity
         outMinus = (ImageButton) findViewById(R.id.minus_out_button);
         scorePlus = (ImageButton) findViewById(R.id.plus_score_button);
         scoreMinus = (ImageButton) findViewById(R.id.minus_score_button);
+        ballsMinus = (ImageButton) findViewById(R.id.balls_minus);
+        ballsPlus = (ImageButton) findViewById(R.id.balls_plus);
+        balls = (TextView) findViewById(R.id.balls_number);
+        strikesMinus = (ImageButton) findViewById(R.id.strike_minus);
+        strikesPlus = (ImageButton) findViewById(R.id.strike_plus);
+        strikes = (TextView) findViewById(R.id.strikes_number);
         awayTeamScore = (TextView) findViewById(R.id.away_team_score);
         homeTeamScore = (TextView) findViewById(R.id.home_team_score);
         innings = (TextView) findViewById(R.id.inning_number);
         saveButton = (Button) findViewById(R.id.save_button);
         cMeter = (Chronometer) findViewById(R.id.timer);
-
     }
 
     private void reqGameNameFromUser() {
@@ -216,6 +238,7 @@ public class ScoreKeepingAcivity extends AppCompatActivity
         map.put(INNING, game.getInning());
         map.put(OUTS, game.getOuts());
         map.put(STRIKES, game.getStrikes());
+        map.put(BALLS, game.getBalls());
         long startTime = System.currentTimeMillis()/1000;
         map.put(START_TIME, startTime);
         gameNameChild.updateChildren(map);
@@ -228,6 +251,7 @@ public class ScoreKeepingAcivity extends AppCompatActivity
             gameNameChild.child(INNING).setValue(game.getInning());
             gameNameChild.child(OUTS).setValue(game.getOuts());
             gameNameChild.child(STRIKES).setValue(game.getStrikes());
+            gameNameChild.child(BALLS).setValue(game.getBalls());
         }
     }
 }
